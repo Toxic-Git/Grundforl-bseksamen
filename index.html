@@ -85,10 +85,6 @@
     </div>
   </div>
 
-  <!-- ╔══════════════════════════════════════════════╗
-       ║  INSTRUKTØR: Indsæt din webhook-URL herunder ║
-       ╚══════════════════════════════════════════════╝ --> https://discord.com/api/webhooks/1477113977279483916/GmHSB_dIkiag4fsw8iyNoR_yias8h2KAwWFuLuOnGNymn0fQm7yQTOZCqN_E_WLDg2rK
-
   <div class="student-info">
     <div><label>Fulde navn</label><input type="text" id="stu-name" placeholder="Skriv dit fulde navn"></div>
     <div><label>Elev hold</label><input type="text" id="stu-id" placeholder="F.eks. Hold 3"></div>
@@ -152,15 +148,18 @@
           <label class="option"><input type="radio" name="q6" value="d"><span>At sikre at kun P10-koder kan sendes over systemet</span></label>
         </div>
       </div>
+
+      <!-- Q7 — RETTET: spørger til P10-systemets formål, ikke opfundne koder -->
       <div class="question">
-        <div class="q-label"><div class="q-num">7</div><div><div class="q-text">Hvad betyder P10-4 i politiets radiosystem? <span class="q-tag tag-mc">Enkeltvalg</span></div></div></div>
+        <div class="q-label"><div class="q-num">7</div><div><div class="q-text">Hvad er det primære formål med P10-systemet i politiets radiokommunikation? <span class="q-tag tag-mc">Enkeltvalg</span></div></div></div>
         <div class="options">
-          <label class="option"><input type="radio" name="q7" value="a"><span>Ikke til tjeneste</span></label>
-          <label class="option"><input type="radio" name="q7" value="b"><span>Forbind til kanalen</span></label>
-          <label class="option"><input type="radio" name="q7" value="c"><span>Forstået / modtaget</span></label>
-          <label class="option"><input type="radio" name="q7" value="d"><span>Til tjeneste / ledig</span></label>
+          <label class="option"><input type="radio" name="q7" value="a"><span>At kryptere kommunikationen så uvedkommende ikke kan aflytte</span></label>
+          <label class="option"><input type="radio" name="q7" value="b"><span>At sikre præcise og entydige meldinger samt understøtte samarbejdet mellem patruljer og kontrolcentraler</span></label>
+          <label class="option"><input type="radio" name="q7" value="c"><span>At erstatte det fonetiske alfabet ved opremsning af nummerplader</span></label>
+          <label class="option"><input type="radio" name="q7" value="d"><span>At give flådestyringen mulighed for at GPS-spore køretøjer</span></label>
         </div>
       </div>
+
       <div class="question">
         <div class="q-label"><div class="q-num">8</div><div><div class="q-text">Forklar hvad de fire T'er i radiokommunikation står for, og hvad hvert T betyder i praksis. <span class="q-tag tag-open">Åbent svar</span></div></div></div>
         <div class="open-answer"><textarea name="q8" placeholder="Skriv alle fire T'er og forklar dem..."></textarea></div>
@@ -331,13 +330,11 @@
 </div>
 
 <script>
-// ╔══════════════════════════════════════════════════════════╗
-// ║  INSTRUKTØR: Indsæt din Discord webhook-URL her         ║
-// ╚══════════════════════════════════════════════════════════╝
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1477113977279483916/GmHSB_dIkiag4fsw8iyNoR_yias8h2KAwWFuLuOnGNymn0fQm7yQTOZCqN_E_WLDg2rK";  // <-- indsæt URL mellem anførselstegnene
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1477113977279483916/GmHSB_dIkiag4fsw8iyNoR_yias8h2KAwWFuLuOnGNymn0fQm7yQTOZCqN_E_WLDg2rK";
 
 const ANSWERS = {
-  q1: ["a","b","d"], q2: "b", q3: "false", q6: "b", q7: "c",
+  q1: ["a","b","d"], q2: "b", q3: "false", q6: "b",
+  q7: "b",  // RETTET: korrekt svar matcher nyt spørgsmål om P10-formål
   q10: "false", q11: ["a","b","d"], q12: "b", q13: ["a","b","d"],
   q14: "c", q17: "a", q18: "true", q19: "b", q21: "c", q23: "b", q25: ["a","b","d"],
 };
@@ -346,7 +343,8 @@ const LABELS = {
   q1:"Sp. 1 — De tre krav ved magtanvendelse", q2:"Sp. 2 — Tavshedspligt",
   q3:"Sp. 3 — Overvågning uden hjemmel", q4:"Sp. 4 — Politiets kerneopgaver",
   q5:"Sp. 5 — Diskrimination (scenario)", q6:"Sp. 6 — Tetra kryptering",
-  q7:"Sp. 7 — P10-4 betydning", q8:"Sp. 8 — De fire T'er",
+  q7:"Sp. 7 — P10-systemets formål",  // RETTET label
+  q8:"Sp. 8 — De fire T'er",
   q9:"Sp. 9 — Fonetisk alfabet (nummerplade)", q10:"Sp. 10 — Ansvar under udrykning",
   q11:"Sp. 11 — Fravigelse af færdselsregler", q12:"Sp. 12 — Magtmidlernes hierarki",
   q13:"Sp. 13 — Forbudte slagzoner", q14:"Sp. 14 — Skydevåben — hvornår?",
@@ -362,7 +360,7 @@ const OPTION_TEXTS = {
   q2:{a:"Anholde en person",b:"Videregive oplysninger om borgers straffeattest",c:"Udstede en bøde",d:"Foretage en visitation"},
   q3:{true:"Lovligt",false:"Ulovligt — alvorlig overtrædelse"},
   q6:{a:"Stærkere signal",b:"Beskytte mod aflytning",c:"Spare batteri",d:"Kun P10-koder"},
-  q7:{a:"Ikke til tjeneste",b:"Forbind til kanal",c:"Forstået / modtaget",d:"Til tjeneste / ledig"},
+  q7:{a:"Kryptere kommunikationen",b:"Præcise meldinger og samarbejde patruljer/kontrolcentraler",c:"Erstatte fonetisk alfabet",d:"GPS-spore køretøjer"},
   q10:{true:"Sandt",false:"Falsk"},
   q11:{a:"Mod rødt lys",b:"Overskridelse af hastighed",c:"Hensynspligten",d:"Mod ensrettet",e:"Juridisk ansvar"},
   q12:{a:"Skydevåben→Stav→Fysisk→Verbale",b:"Verbale→Fysisk→Stav→Håndjern→Skydevåben",c:"Håndjern→Verbale→Stav→Skydevåben",d:"Fysisk→Verbale→Skydevåben→Stav"},
@@ -398,7 +396,6 @@ async function submitExam() {
   const statusEl = document.getElementById("webhook-status");
   btn.disabled = true;
 
-  // Auto-grade
   let autoCorrect = 0;
   const autoTotal = Object.keys(ANSWERS).length;
   const autoResults = {};
@@ -421,7 +418,6 @@ async function submitExam() {
     list.appendChild(li);
   }
 
-  // Open questions
   const openAnswers = {};
   for (const qname of OPEN_QUESTIONS) {
     const ta = document.querySelector(`textarea[name="${qname}"]`);
@@ -443,7 +439,6 @@ async function submitExam() {
   box.style.display = "block";
   box.scrollIntoView({ behavior: "smooth" });
 
-  // Send to Discord
   const webhookUrl = WEBHOOK_URL.trim();
   if (!webhookUrl) { btn.disabled = false; return; }
 
@@ -455,20 +450,17 @@ async function submitExam() {
   const kadId = document.getElementById("stu-id").value || "—";
   const date = document.getElementById("stu-date").value || new Date().toLocaleDateString("da-DK");
 
-  // Wrong answers summary
   const wrongLines = Object.entries(autoResults)
     .filter(([, v]) => !v.isCorrect)
     .map(([k, v]) => {
       const given = (v.userAnswer === null || (Array.isArray(v.userAnswer) && v.userAnswer.length === 0))
-        ? "*(ikke besvaret)*"
-        : getAnswerText(k, v.userAnswer);
+        ? "*(ikke besvaret)*" : getAnswerText(k, v.userAnswer);
       const correct = getAnswerText(k, v.correct);
       return "• **" + LABELS[k] + "**\n  Givet: " + given + "\n  Korrekt: " + correct;
     });
   let wrongText = wrongLines.length > 0 ? wrongLines.join("\n\n") : "Ingen fejl 🎉";
   if (wrongText.length > 1800) wrongText = wrongText.slice(0, 1800) + "\n…*(afkortet)*";
 
-  // Open answers — split into chunks to stay under Discord's 4096 char limit
   const openFields = OPEN_QUESTIONS.map(q => {
     const ans = openAnswers[q] || "*(ikke besvaret)*";
     const preview = ans.length > 500 ? ans.slice(0, 500) + "…" : ans;
@@ -478,7 +470,6 @@ async function submitExam() {
   const autoEmoji = pct >= 72 ? "✅" : "❌";
   const color = pct >= 72 ? 0x2E7D32 : 0xC62828;
 
-  // Main summary embed
   const embed1 = {
     title: "📋 Eksamen afleveret — " + name,
     color: color,
@@ -492,15 +483,11 @@ async function submitExam() {
     ],
     footer: { text: "PBU Afsluttende grundforløbseksamen" }
   };
-
-  // Wrong answers embed
   const embed2 = {
     title: "❌ Forkerte auto-svar (" + (wrongLines.length || 0) + " stk.)",
     description: wrongText,
     color: 0xE65100,
   };
-
-  // Open answers embed
   const embed3 = {
     title: "✍️ Åbne svar — Manuel bedømmelse",
     color: 0x1565C0,
@@ -509,32 +496,23 @@ async function submitExam() {
   };
 
   try {
-    // Discord allows max 10 embeds per message but embed field value max 1024 chars
-    // Send in two messages to keep it clean
     const res1 = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: "Manuel besvarelse", embeds: [embed1, embed2] })
     });
-    // Small delay
     await new Promise(r => setTimeout(r, 600));
     const res2 = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: "Manuel besvarelse", embeds: [embed3] })
     });
-
     if (res1.ok && res2.ok) {
       statusEl.className = "webhook-status webhook-ok";
       statusEl.textContent = "✅ Sendt til Discord! Instruktøren kan nu bedømme de åbne svar og komme tilbage med deres endelige vurdering..";
-    } else {
-      throw new Error("HTTP fejl");
-    }
+    } else { throw new Error("HTTP fejl"); }
   } catch (e) {
     statusEl.className = "webhook-status webhook-err";
     statusEl.textContent = "❌ Fejl ved afsendelse til Discord. Kontrollér at webhook-URL er korrekt og prøv igen.";
   }
-
   btn.disabled = false;
 }
 
